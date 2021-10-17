@@ -17,8 +17,9 @@
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-            <button class="btn-cart" type="button">Корзина</button>
-            <div class="cart-block invisible"></div>
+<!--            <button class="btn-cart" type="button">Корзина</button>-->
+<!--            <div class="cart-block invisible"></div>-->
+            <button v-on:click="isVisibleCart = !isVisibleCart" class="btn-cart" type="button">Корзина {{ cartTotal }}</button>
         </div>
     </header>
     <main>
