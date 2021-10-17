@@ -5,6 +5,7 @@ const app = new Vue({
     data: {
         catalogUrl: '/catalogData.json',
         products: [],
+        filtered: [],
         imgCatalog: 'https://via.placeholder.com/200x150',
         userSearch: '',
         show: false
@@ -16,6 +17,10 @@ const app = new Vue({
                 .catch(error => {
                     console.log(error);
                 })
+        },
+        filter() {
+            const regexp = new RegExp(this.userSearch, 'i');
+            this.filtered = this.products.filter(product => regexp.test(product.product_name));
         },
         addProduct(product){
             console.log(product.id_product);
