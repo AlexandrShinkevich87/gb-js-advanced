@@ -29,7 +29,7 @@ class Validator {
         for (let field of formFields) {
             this._validate(field);
         }
-        if (![...document.getElementById(this.form).querySelectorAll('.invalid')].length) {
+        if (![...document.getElementById(this.form).querySelectorAll('.invalid')].length) { // нет элементов с красной рамкой
             this.valid = true;
         }
     }
@@ -47,11 +47,17 @@ class Validator {
     _addErrorMsg(field) {
         let error = `<div class="${this.errorClass}">${this.errors[field.name]}</div> `;
         field.parentNode.insertAdjacentHTML('beforeend', error);// parentNode - элемент label
+        // field.insertAdjacentHTML('afterend', error);// сразу вставляем после input
     }
 
+    /**
+     * контролируем каждое изменение в каждом input'е в режиме онлайн
+     * @param field
+     * @private
+     */
     _watchField(field) {
-        field.addEventListener('input', () => {
-            let error = field.parentNode.querySelector(`.${this.errorClass}`);
+        field.addEventListener('input', () => { // для каожного поля привязываем событие input(срабатываем при каждом изменении поля, что-то вводим, например)
+            let error = field.parentNode.querySelector(`.${this.errorClass}`); // ищем на элементе field.parentNode (label) сообщение об ошибке
             if (this.patterns[field.name].test(field.value)) {
                 field.classList.remove('invalid');
                 field.classList.add('valid');
